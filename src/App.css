@@ -1,0 +1,64 @@
+.app {
+}
+
+.selection {
+  width: 100%;
+  background: grey;
+  padding: 75px;
+  grid-template-columns: 7fr 3fr;
+  grid-template-row: 1fr;
+  display: grid;
+}
+
+.usamap {
+}
+
+.representativeTable {
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-row: repeat(2, 1fr);
+  display: grid;
+}
+
+.representativeTile {
+  width: inherit;
+  background: white;
+  margin: auto 0;
+}
+
+.representativeTile:hover {
+  opacity: 0.50;
+  cursor: pointer;
+}
+
+path {
+  pointer-events: all;
+}
+
+path:hover {
+  opacity: 0.50;
+  cursor: pointer;
+}
+
+.frequencyGraph {
+  height: 500px;
+  padding: 20px;
+  background-color: white;
+}
+
+.hashtagHistogram {
+  height: 500px;
+  padding: 20px;
+  background-color: #999;
+}
+
+.tweetTable {
+  height: 500px;
+  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-row: repeat(2, 1fr);
+  display: grid;
+}
+
+.tweetTile {
+  margin: 0 auto;
+}

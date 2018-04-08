@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import FrequencyGraph from './components/frequencyGraph';
 import HashtagHistogram from './components/hashtagHistogram';
 import USAMap from "react-usa-map";
-import Representative from "./components/representative";
-import Tweet from "./components/representative";
 import { Media } from 'react-bootstrap';
 import './App.css';
 
