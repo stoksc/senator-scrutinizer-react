@@ -1,42 +1,16 @@
 import React, { Component } from 'react';
-//import FrequencyGraph from './components/frequencyGraph';
-//import HashtagHistogram from './components/hashtagHistogram';
-import USAMap from "react-usa-map";
-import { Media } from 'react-bootstrap';
-import { Fullpage, Slide, HorizontalSlider } from 'fullpage-react';
-import LineGraph from './components/LineGraph';
-import './App.css';
+import { render } from 'react-dom'
+import { ResponsiveLine } from '@nivo/line'
 
-const fullPageOptions = {
-  scrollSensitivity: 5,
-  touchSensitivity: 5,
-  scrollSpeed: 500,
-  hideScrollBars: true,
-  enableArrowKeys: true
-};
-const tweetsDetailSlidesProps = {
-  name: 'tweetsPage',
-  infinite: true,
-};
-
-class App extends Component {
+class LineGraph extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      'stateSenators': [
+      "volume_line_graph": [
         {
-          'name': 'Shelby, Richard',
-          'desc': 'The official Twitter page for U.S. Senator Richard Shelby (R-Ala.) https://www.facebook.com/RichardShelby',
-          'img': 'https://pbs.twimg.com/profile_images/621070518834212864/ikIQKvUq_400x400.jpg',
-        },
-        {
-          'name': 'Jomes, Doug',
-          'desc': 'U.S. Senator for Alabama',
-          'img': 'https://pbs.twimg.com/profile_images/959169332516409345/yMUOyuF__400x400.jpg',
-        }
-      ],
-      'selectedSenator': null,
-      'data':[
+            "id": "Number of tweets",
+            "color": "hsl(280, 70%, 50%)",
+            "data": [
                 {
                     "color": "hsl(280, 70%, 50%)",
                     "x": 1520462356.6166668,
@@ -330,109 +304,69 @@ class App extends Component {
                 {
                     "color": "hsl(280, 70%, 50%)",
                     "x": 1523388760.150001,
-                    "y": 3}
-                ],
+                    "y": 3
+                }
+            ],
 
-      'tweets': [
-        {
-          'heading': 'test',
-          'text': 'blah',
-        },
-        {
-          'heading': 'test',
-          'text': 'blah',
-        },
-        {
-          'heading': 'test',
-          'text': 'blah',
-        },
-        {
-          'heading': 'test',
-          'text': 'blah',
-        },
-      ]
+        }
+    ]
     }
   }
-
-  mapHandler = (event) => {
-    alert('selected state')
-  };
-
-  selectRep = (event) => {
-    alert('selected rep')
-    this.setState({
-      'selectedSenator': "name"
-    })
-  }
-
   render() {
-    const tweetsDetailSlides = [
-      <Slide>
-        <div className="tweetTable">
-          {this.state.tweets.map((tweet) => {
-            return (
-              <Media className="tweetTile">
-                <Media.Left>
-                  <img width={64} height={64} src={'https://pbs.twimg.com/profile_images/621070518834212864/ikIQKvUq_400x400.jpg'} alt="thumbnail" />
-                </Media.Left>
-                <Media.Body>
-                  <Media.Heading>
-                    {tweet.heading}
-                  </Media.Heading>
-                  {tweet.text}
-                </Media.Body>
-              </Media>
-            )
-          })}
-        </div>
-      </Slide>,
-      <Slide> Slide 2.2 </Slide>
-    ];
-    tweetsDetailSlidesProps.slides = tweetsDetailSlides;
-    const slides = [
-      <Slide>
-        <div className="selection">
-          <div className="usamap">
-            <USAMap onClick={this.mapHandler} />
-          </div>
-          <div className="representativeTable">
-            {this.state.stateSenators.map((representative) => {
-              return (
-                <Media className="representativeTile" onClick={this.selectRep}>
-                  <Media.Left>
-                    <img width={64} height={64} src={representative.img} alt="thumbnail" />
-                  </Media.Left>
-                  <Media.Body>
-                    <Media.Heading>
-                      {representative.name}
-                    </Media.Heading>
-                    {representative.desc}
-                  </Media.Body>
-                </Media>
-          )})}
-          </div>
-        </div>
-      </Slide>,
-      <Slide>
-        <div className="frequencyGraph">
-          <LineGraph />
-        </div>
-        <div className="hashtagHistogram">
-          <p>f</p>
-        </div>
-      </Slide>,
-      <HorizontalSlider {...tweetsDetailSlidesProps}></HorizontalSlider>
-    ];
-    fullPageOptions.slides = slides;
+    return(
 
-    return (
-      <div className="app">
-        <div>
-          <Fullpage {...fullPageOptions} />
-        </div>
-      </div>
+      <ResponsiveLine
+        data={this.state.volume_line_graph}
+        margin={{
+            "top": 50,
+            "right": 110,
+            "bottom": 50,
+            "left": 60
+        }}
+        minY="auto"
+        stacked={true}
+        axisBottom={{
+            "orient": "bottom",
+            "tickSize": 5,
+            "tickPadding": 5,
+            "tickRotation": 0,
+            "legend": "country code",
+            "legendOffset": 36,
+            "legendPosition": "center"
+        }}
+        axisLeft={{
+            "orient": "left",
+            "tickSize": 5,
+            "tickPadding": 5,
+            "tickRotation": 0,
+            "legend": "count",
+            "legendOffset": -40,
+            "legendPosition": "center"
+        }}
+        dotSize={10}
+        dotColor="inherit:darker(0.3)"
+        dotBorderWidth={2}
+        dotBorderColor="#ffffff"
+        enableDotLabel={true}
+        dotLabel="y"
+        dotLabelYOffset={-12}
+        animate={true}
+        motionStiffness={90}
+        motionDamping={15}
+        legends={[
+            {
+                "anchor": "bottom-right",
+                "direction": "column",
+                "translateX": 100,
+                "itemWidth": 80,
+                "itemHeight": 20,
+                "symbolSize": 12,
+                "symbolShape": "circle"
+            }
+        ]}
+    />
     );
   }
 }
 
-export default App;
+export default LineGraph;
