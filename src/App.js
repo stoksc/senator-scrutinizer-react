@@ -5,6 +5,7 @@ import USAMap from "react-usa-map";
 import { Media } from 'react-bootstrap';
 import { Fullpage, Slide, HorizontalSlider } from 'fullpage-react';
 import LineGraph from './components/LineGraph';
+import StreamGraph from './components/StreamGraph';
 import './App.css';
 
 const fullPageOptions = {
@@ -315,6 +316,136 @@ class App extends Component {
           'heading': 'test',
           'text': 'blah',
         },
+      ],
+      'dataS': [
+        {
+          "Raoul": 80,
+          "Josiane": 14,
+          "Marcel": 78,
+          "René": 50,
+          "Paul": 128,
+          "Jacques": 174
+        },
+        {
+          "Raoul": 133,
+          "Josiane": 199,
+          "Marcel": 197,
+          "René": 57,
+          "Paul": 90,
+          "Jacques": 146
+        },
+        {
+          "Raoul": 103,
+          "Josiane": 15,
+          "Marcel": 112,
+          "René": 197,
+          "Paul": 87,
+          "Jacques": 50
+        },
+        {
+          "Raoul": 181,
+          "Josiane": 146,
+          "Marcel": 109,
+          "René": 168,
+          "Paul": 175,
+          "Jacques": 34
+        },
+        {
+          "Raoul": 91,
+          "Josiane": 128,
+          "Marcel": 26,
+          "René": 105,
+          "Paul": 80,
+          "Jacques": 117
+        },
+        {
+          "Raoul": 119,
+          "Josiane": 135,
+          "Marcel": 110,
+          "René": 86,
+          "Paul": 176,
+          "Jacques": 129
+        },
+        {
+          "Raoul": 168,
+          "Josiane": 29,
+          "Marcel": 187,
+          "René": 123,
+          "Paul": 109,
+          "Jacques": 15
+        },
+        {
+          "Raoul": 171,
+          "Josiane": 32,
+          "Marcel": 91,
+          "René": 96,
+          "Paul": 41,
+          "Jacques": 143
+        },
+        {
+          "Raoul": 57,
+          "Josiane": 143,
+          "Marcel": 12,
+          "René": 11,
+          "Paul": 138,
+          "Jacques": 47
+        },
+        {
+          "Raoul": 131,
+          "Josiane": 51,
+          "Marcel": 54,
+          "René": 42,
+          "Paul": 77,
+          "Jacques": 129
+        },
+        {
+          "Raoul": 96,
+          "Josiane": 136,
+          "Marcel": 104,
+          "René": 93,
+          "Paul": 74,
+          "Jacques": 153
+        },
+        {
+          "Raoul": 173,
+          "Josiane": 197,
+          "Marcel": 42,
+          "René": 32,
+          "Paul": 61,
+          "Jacques": 179
+        },
+        {
+          "Raoul": 124,
+          "Josiane": 105,
+          "Marcel": 182,
+          "René": 133,
+          "Paul": 117,
+          "Jacques": 143
+        },
+        {
+          "Raoul": 37,
+          "Josiane": 128,
+          "Marcel": 23,
+          "René": 176,
+          "Paul": 144,
+          "Jacques": 90
+        },
+        {
+          "Raoul": 18,
+          "Josiane": 42,
+          "Marcel": 12,
+          "René": 133,
+          "Paul": 69,
+          "Jacques": 69
+        },
+        {
+          "Raoul": 58,
+          "Josiane": 81,
+          "Marcel": 159,
+          "René": 130,
+          "Paul": 190,
+          "Jacques": 60
+        }
       ]
     }
   }
@@ -331,11 +462,11 @@ class App extends Component {
   }
 
   render() {
+    //Creates horizonal slides
     const graphsSlides = [
       <Slide> <LineGraph volume_line_graph={this.state.data} /> </Slide>,
-      <Slide> Slide 2.2 </Slide>
+      <Slide> <StreamGraph stream_data={this.state.dataS}/> </Slide>
     ]
-    graphsSlidesProps.slides = graphsSlides;
     const tweetsDetailSlides = [
       <Slide>
         <div className="tweetTable">
@@ -358,6 +489,9 @@ class App extends Component {
       </Slide>,
       <Slide> Slide 3.2 </Slide>
     ];
+
+    //Assigns above consts as slide props
+    graphsSlidesProps.slides = graphsSlides;
     tweetsDetailSlidesProps.slides = tweetsDetailSlides;
 
     const slides = [
