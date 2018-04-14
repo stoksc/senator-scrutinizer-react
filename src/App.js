@@ -6,6 +6,8 @@ import { Media } from 'react-bootstrap';
 import { Fullpage, Slide, HorizontalSlider } from 'fullpage-react';
 import LineGraph from './components/LineGraph';
 import StreamGraph from './components/StreamGraph';
+import PieGraph from './components/PieGraph';
+import RadarGraph from './components/RadarGraph';
 import './App.css';
 
 const fullPageOptions = {
@@ -446,16 +448,92 @@ class App extends Component {
           "Paul": 190,
           "Jacques": 60
         }
+      ],
+      'pieData': [
+        {
+          "id": "haskell",
+          "label": "haskell",
+          "value": 543,
+          "color": "hsl(353, 70%, 50%)"
+        },
+        {
+          "id": "ruby",
+          "label": "ruby",
+          "value": 253,
+          "color": "hsl(234, 70%, 50%)"
+        },
+        {
+          "id": "javascript",
+          "label": "javascript",
+          "value": 21,
+          "color": "hsl(18, 70%, 50%)"
+        },
+        {
+          "id": "rust",
+          "label": "rust",
+          "value": 584,
+          "color": "hsl(126, 70%, 50%)"
+        },
+        {
+          "id": "java",
+          "label": "java",
+          "value": 376,
+          "color": "hsl(96, 70%, 50%)"
+        },
+        {
+          "id": "c",
+          "label": "c",
+          "value": 33,
+          "color": "hsl(278, 70%, 50%)"
+        },
+        {
+          "id": "css",
+          "label": "css",
+          "value": 333,
+          "color": "hsl(34, 70%, 50%)"
+        }
+      ],
+      'radarData': [
+        {
+          "taste": "fruity",
+          "chardonay": 66,
+          "carmenere": 47,
+          "syrah": 75
+        },
+        {
+          "taste": "bitter",
+          "chardonay": 96,
+          "carmenere": 92,
+          "syrah": 92
+        },
+        {
+          "taste": "heavy",
+          "chardonay": 103,
+          "carmenere": 21,
+          "syrah": 40
+        },
+        {
+          "taste": "strong",
+          "chardonay": 107,
+          "carmenere": 37,
+          "syrah": 63
+        },
+        {
+          "taste": "sunny",
+          "chardonay": 29,
+          "carmenere": 36,
+          "syrah": 56
+        }
       ]
     }
   }
 
   mapHandler = (event) => {
-    alert('selected state')
+    alert(event.target.dataset.name)
   };
 
   selectRep = (event) => {
-    alert('selected rep')
+    alert(event.target.dataset.name)
     this.setState({
       'selectedSenator': "name"
     })
@@ -465,7 +543,9 @@ class App extends Component {
     //Creates horizonal slides
     const graphsSlides = [
       <Slide> <LineGraph volume_line_graph={this.state.data} /> </Slide>,
-      <Slide> <StreamGraph stream_data={this.state.dataS}/> </Slide>
+      <Slide> <StreamGraph stream_data={this.state.dataS}/> </Slide>,
+      <Slide> <PieGraph pie_data={this.state.pieData}/> </Slide>,
+      <Slide> <RadarGraph radar_data={this.state.radarData}/> </Slide>
     ]
     const tweetsDetailSlides = [
       <Slide>

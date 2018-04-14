@@ -1,10 +1,31 @@
 import React, { Component } from 'react';
-import { ResponsiveLine } from '@nivo/line'
+import { ResponsiveLine } from '@nivo/line';
+//change this
+let url = 'http://twingiephp.us-east-1.elasticbeanstalk.com/analytics/hashtag/javascript';
 
 class LineGraph extends Component {
   constructor(props) {
     super(props);
     this.state = null
+  }
+
+  async componentDidMount() {
+
+    const request = async () => {
+      const response = await fetch(url);
+      const json = await response.json();
+      this.setState({
+        data: Object.values(json).map(element => {
+          return {
+            //change these
+            unix_time: parseInt(element['unix_time']['N']),
+            volume: parseInt(element['number_of_tweets']['N']),
+            sentiment: parseFloat(element['sentiment']['S'])
+          };
+        }),
+      });
+    }
+    request();
   }
   render() {
     const commonProperties = {
