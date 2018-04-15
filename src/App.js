@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import USAMap from "react-usa-map";
 import { Media } from 'react-bootstrap';
 import { Fullpage, Slide, HorizontalSlider } from 'fullpage-react';
+import MediaTile from './components/MediaTile'
 import LineGraph from './components/LineGraph';
 import StreamGraph from './components/StreamGraph';
 import PieGraph from './components/PieGraph';
@@ -547,10 +548,11 @@ class App extends Component {
     request();
   };
 
-  selectRep = (event) => {
-    alert(event.target.dataset.name)
+  selectSenator = (senator) => {
+    alert(senator.name)
+    console.log(senator)
     this.setState({
-      'selectedSenator': "name"
+      'selectedSenator': senator.name,
     })
   }
 
@@ -596,19 +598,13 @@ class App extends Component {
             <USAMap onClick={this.mapHandler} />
           </div>
           <div className="representativeTable">
-            {this.state.stateSenators.map((representative) => {
+            {this.state.stateSenators.map((senator) => {
               return (
-                <Media className="representativeTile" onClick={this.selectRep}>
-                  <Media.Left>
-                    <img width={64} height={64} src={representative.img} alt="thumbnail" />
-                  </Media.Left>
-                  <Media.Body>
-                    <Media.Heading>
-                      {representative.name}
-                    </Media.Heading>
-                    {representative.desc}
-                  </Media.Body>
-                </Media>
+                <MediaTile className="representativeTile"
+                           key={senator.name}
+                           media={senator}
+                           onClick={this.selectSenator}
+                           />
           )})}
           </div>
         </div>
