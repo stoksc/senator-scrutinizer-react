@@ -529,7 +529,22 @@ class App extends Component {
   }
 
   mapHandler = (event) => {
-    alert(event.target.dataset.name)
+    let url = `http://twingiephp.us-west-2.elasticbeanstalk.com/analytics/state?state=${event.target.dataset.name.toLowerCase()}`
+    const request = async () => {
+      const response = await fetch(url);
+      const json = await response.json();
+      this.setState({
+        stateSenators: Object.values(json.senators).map((element) => {
+          const senatorName = Object.keys(element)
+          return {
+            name: element[senatorName]['twitterID'],
+            desc: element[senatorName]['bio'],
+            img: element[senatorName]['image'],
+          }
+        }),
+      });
+    }
+    request();
   };
 
   selectRep = (event) => {
