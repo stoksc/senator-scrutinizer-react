@@ -6,8 +6,14 @@
   background: grey;
   padding: 75px;
   grid-template-columns: 7fr 3fr;
-  grid-template-row: 1fr;
+  grid-template-rows: 1fr;
   display: grid;
+}
+
+.pieGraphs {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
 }
 
 .usamap {
@@ -15,7 +21,7 @@
 
 .representativeTable {
   grid-template-columns: repeat(1, 1fr);
-  grid-template-row: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   display: grid;
 }
 
@@ -55,7 +61,7 @@ path:hover {
   height: 500px;
   width: 100%;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-row: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   display: grid;
 }
 

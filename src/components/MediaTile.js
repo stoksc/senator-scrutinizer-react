@@ -14,7 +14,7 @@ class MediaTile extends React.Component {
         </Media.Left>
         <Media.Body>
           <Media.Heading>
-            {this.props.media.bio}
+            {this.props.media.name}
           </Media.Heading>
           {this.props.media.desc}
         </Media.Body>

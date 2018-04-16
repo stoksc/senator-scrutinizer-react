@@ -450,7 +450,51 @@ class App extends Component {
           "Jacques": 60
         }
       ],
-      'pieData': [
+      'hashtagPieData': [
+        {
+          "id": "haskell",
+          "label": "haskell",
+          "value": 543,
+          "color": "hsl(353, 70%, 50%)"
+        },
+        {
+          "id": "ruby",
+          "label": "ruby",
+          "value": 253,
+          "color": "hsl(234, 70%, 50%)"
+        },
+        {
+          "id": "javascript",
+          "label": "javascript",
+          "value": 21,
+          "color": "hsl(18, 70%, 50%)"
+        },
+        {
+          "id": "rust",
+          "label": "rust",
+          "value": 584,
+          "color": "hsl(126, 70%, 50%)"
+        },
+        {
+          "id": "java",
+          "label": "java",
+          "value": 376,
+          "color": "hsl(96, 70%, 50%)"
+        },
+        {
+          "id": "c",
+          "label": "c",
+          "value": 33,
+          "color": "hsl(278, 70%, 50%)"
+        },
+        {
+          "id": "css",
+          "label": "css",
+          "value": 333,
+          "color": "hsl(34, 70%, 50%)"
+        }
+      ],
+      'userPieData': [
         {
           "id": "haskell",
           "label": "haskell",
@@ -554,6 +598,18 @@ class App extends Component {
     this.setState({
       'selectedSenator': senator.name,
     })
+    let url = `http://twingiephp.us-west-2.elasticbeanstalk.com/analytics/senator?twitterid=${senator.name.substring(1, senator.name.length)}`
+    const request = async () => {
+      const response = await fetch(url);
+      const json = await response.json();
+      console.log(json)
+      this.setState({
+        data: json.volume_line_graph,
+        hashtagPieData: json.related_hashtag,
+        userPieData: json.related_user,
+      });
+    }
+    request();
   }
 
   render() {
@@ -561,7 +617,12 @@ class App extends Component {
     const graphsSlides = [
       <Slide> <LineGraph volume_line_graph={this.state.data} /> </Slide>,
       <Slide> <StreamGraph stream_data={this.state.dataS}/> </Slide>,
-      <Slide> <PieGraph pie_data={this.state.pieData}/> </Slide>,
+      <Slide>
+        <div className="pieGraphs">
+         <PieGraph pie_data={this.state.hashtagPieData} />
+         <PieGraph pie_data={this.state.userPieData} />
+        </div>
+      </Slide>,
       <Slide> <RadarGraph radar_data={this.state.radarData}/> </Slide>
     ]
     const tweetsDetailSlides = [
