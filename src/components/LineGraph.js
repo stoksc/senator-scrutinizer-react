@@ -32,13 +32,13 @@ class LineGraph extends Component {
       data: this.props.volume_line_graph,
       margin: {top: 50, right: 110, bottom: 50, left: 60},
       minY: "auto",
-      stacked: true,
+      stacked: false,
       axisBottom: {
           "orient": "bottom",
           "tickSize": 5,
           "tickPadding": 5,
           "tickRotation": 0,
-          "legend": "country code",
+          "legend": "Time",
           "legendOffset": 36,
           "legendPosition": "center"},
       axisLeft: {
@@ -46,7 +46,7 @@ class LineGraph extends Component {
           "tickSize": 5,
           "tickPadding": 5,
           "tickRotation": 0,
-          "legend": "count",
+          "legend": "Count",
           "legendOffset": -40,
           "legendPosition": "center"},
       dotSize: 10,
@@ -54,6 +54,7 @@ class LineGraph extends Component {
       dotBorderWidth: 2,
       dotBorderColor: '#ffffff',
       enableDotLabel: true,
+      enableArea: true,
       dotLabel: 'y',
       dotLabelYOffset: -12,
       animate: true,
@@ -72,7 +73,15 @@ class LineGraph extends Component {
       ]
     }
 
-    return( <ResponsiveLine {...commonProperties} /> );
+    if (commonProperties.data) {
+      return (
+        <ResponsiveLine {...commonProperties} />
+      );
+    } else {
+      return (
+        <div></div>
+      )
+    }
   }
 }
 

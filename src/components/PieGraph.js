@@ -11,7 +11,7 @@ class PieGraph extends Component {
     const keys = ['Raoul', 'Josiane', 'Marcel', 'René', 'Paul', 'Jacques']
 
     const commonProperties = {
-      width: 900,
+      width: 360,
       height: 360,
       margin: { top: 60, right: 80, bottom: 60, left: 80 },
       keys,
@@ -37,20 +37,17 @@ class PieGraph extends Component {
       slicesLabelsTextColor: "#333333",
       motionStiffness: 90,
       motionDamping: 15,
-      legends: [
-          {
-              "anchor": "bottom",
-              "direction": "row",
-              "translateY": 56,
-              "itemWidth": 100,
-              "itemHeight": 14,
-              "symbolSize": 14,
-              "symbolShape": "circle"
-          }
-      ]
     }
 
-    return( <Pie {...commonProperties} /> )
+    if (commonProperties.data) {
+      return (
+        <Pie {...commonProperties} />
+      )
+    } else {
+      return (
+        <div></div>
+      )
+    }
   }
 }
 export default PieGraph;
