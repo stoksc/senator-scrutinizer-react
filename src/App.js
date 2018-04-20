@@ -31,6 +31,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      'selectedState': null,
       'stateSenators': [
         {
           'name': ' ',
@@ -64,7 +65,7 @@ class App extends Component {
     this.setState({
       'selectedSenator': '@realdonaldtrump',
     });
-    let default_url = `http://twingiephp.us-west-2.elasticbeanstalk.com/analytics/senator?twitterid=realdonaldtrump`
+    let default_url = `http://twingiephp.us-west-2.elasticbeanstalk.com/analytics/senator?state=ga&twitterid=senatorisakson`
     const default_request = async () => {
       const default_response = await fetch(default_url);
       const default_json = await default_response.json();
@@ -78,11 +79,13 @@ class App extends Component {
   }
 
   mapHandler = (event) => {
-    let url = `http://twingiephp.us-west-2.elasticbeanstalk.com/analytics/state?state=${event.target.dataset.name.toLowerCase()}`
+    let state = event.target.dataset.name.toLowerCase()
+    let url = `http://twingiephp.us-west-2.elasticbeanstalk.com/analytics/state?state=${state}`
     const request = async () => {
       const response = await fetch(url);
       const json = await response.json();
       this.setState({
+        selectedState: state,
         stateSenators: Object.values(json.senators).map((element) => {
           const senatorName = Object.keys(element)
           return {
@@ -102,7 +105,7 @@ class App extends Component {
     this.setState({
       'selectedSenator': senator.name,
     })
-    let url = `http://twingiephp.us-west-2.elasticbeanstalk.com/analytics/senator?twitterid=${senator.name.substring(1, senator.name.length)}`
+    let url = `http://twingiephp.us-west-2.elasticbeanstalk.com/analytics/senator?state=${this.state.selectedState}&twitterid=${senator.name.substring(1, senator.name.length)}`
     const request = async () => {
       const response = await fetch(url);
       const json = await response.json();
