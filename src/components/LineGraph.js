@@ -36,7 +36,8 @@ class LineGraph extends Component {
       axisBottom: {
           "orient": "bottom",
           "tickSize": 5,
-          "tickPadding": 5,
+          //padding clips out interval label
+          "tickPadding": 105,
           "tickRotation": 0,
           "legend": "Time",
           "legendOffset": 36,
@@ -75,7 +76,12 @@ class LineGraph extends Component {
 
     if (commonProperties.data) {
       return (
-        <ResponsiveLine {...commonProperties} />
+        <ResponsiveLine {...commonProperties}
+          tooltipFormat={value =>
+    `${Number(value).toLocaleString('ru-RU', {
+        minimumFractionDigits: 2,
+    })} ₽`
+}/>
       );
     } else {
       return (
