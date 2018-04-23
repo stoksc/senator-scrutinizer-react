@@ -19,6 +19,20 @@
 .usamap {
 }
 
+.piePage {
+  width: 100%;
+  background: grey;
+  padding: 75px;
+  grid-template-columns: 1fr 1fr;
+  display: grid;
+}
+
+.piePageRight {
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+}
+
 .representativeTable {
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(2, 1fr);

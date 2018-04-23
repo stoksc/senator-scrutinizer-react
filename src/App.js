@@ -4,11 +4,14 @@ import React, { Component } from 'react';
 import USAMap from "react-usa-map";
 import { Media } from 'react-bootstrap';
 import { Fullpage, Slide, HorizontalSlider } from 'fullpage-react';
-import MediaTile from './components/MediaTile'
+import TextField from 'material-ui/TextField';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MediaTile from './components/MediaTile';
 import LineGraph from './components/LineGraph';
 import StreamGraph from './components/StreamGraph';
 import PieGraph from './components/PieGraph';
 import RadarGraph from './components/RadarGraph';
+import TweetGrid from './components/TweetGrid';
 import './App.css';
 
 const fullPageOptions = {
@@ -43,6 +46,8 @@ class App extends Component {
       'data': null,
       'dataS': null,
       'hashtagPieData': null,
+      'displayedHashtagPieData': null,
+      'hashtagFieldValue': '',
       'userPieData': null,
       'radarData': null,
     }
@@ -62,16 +67,15 @@ class App extends Component {
       });
     }
     request();
-    this.setState({
-      'selectedSenator': '@realdonaldtrump',
-    });
     let default_url = `http://twingiephp.us-west-2.elasticbeanstalk.com/analytics/senator?state=ga&twitterid=senatorisakson`
     const default_request = async () => {
       const default_response = await fetch(default_url);
       const default_json = await default_response.json();
       this.setState({
+        selectedSenator: '@senatorisakson',
         data: default_json.volume_line_graph,
         hashtagPieData: default_json.related_hashtag,
+        displayedHashtagPieData: default_json.related_hashtag,
         userPieData: default_json.related_user,
       });
     }
@@ -100,8 +104,6 @@ class App extends Component {
   };
 
   selectSenator = (senator) => {
-    alert(senator.name)
-    console.log(senator)
     this.setState({
       'selectedSenator': senator.name,
     })
@@ -109,15 +111,27 @@ class App extends Component {
     const request = async () => {
       const response = await fetch(url);
       const json = await response.json();
-      console.log(json)
       this.setState({
         data: json.volume_line_graph,
         hashtagPieData: json.related_hashtag,
+        displayedHashtagPieData: json.related_hashtag,
         userPieData: json.related_user,
+        wordPieData: json.word_occurence_pie_graph,
       });
     }
     request();
   };
+
+  hashtagTextFieldChange = (event) => {
+    this.setState({
+        hashtagFieldValue: event.target.value,
+        displayedHashtagPieData: Object.values(this.state.hashtagPieData).filter(
+          (slice) => {
+            return slice.id.includes(event.target.value)
+          }
+        )
+    });
+  }
 
   render() {
     //Creates horizonal slides
@@ -129,8 +143,18 @@ class App extends Component {
          <PieGraph pie_data={this.state.userPieData} />
       </Slide>,
       <Slide>
-        <PieGraph pie_data={this.state.hashtagPieData} />
-      </Slide>
+        <MuiThemeProvider >
+          <div className="piePage">
+            <div className="piePageLeft">
+              <TextField value={this.state.hashtagFieldValue} onChange={this.hashtagTextFieldChange} />
+              <PieGraph pie_data={this.state.displayedHashtagPieData} />
+            </div>
+            <div className="piePageRight">
+              <TweetGrid pie_data={this.state.displayedHashtagPieData} />
+            </div>
+         </div>
+        </MuiThemeProvider>
+      </Slide>,
     ]
 
     //Assigns above consts as slide props

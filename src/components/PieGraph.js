@@ -11,8 +11,8 @@ class PieGraph extends Component {
     const keys = ['Raoul', 'Josiane', 'Marcel', 'René', 'Paul', 'Jacques']
 
     const commonProperties = {
-      width: 360,
-      height: 360,
+      width: 600,
+      height: 600,
       margin: { top: 60, right: 80, bottom: 60, left: 80 },
       keys,
       data: this.props.pie_data,
