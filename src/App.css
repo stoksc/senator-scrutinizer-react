@@ -3,7 +3,6 @@
 
 .selection {
   width: 100%;
-  background: grey;
   padding: 75px;
   grid-template-columns: 7fr 3fr;
   grid-template-rows: 1fr;
@@ -21,7 +20,6 @@
 
 .piePage {
   width: 100%;
-  background: grey;
   padding: 75px;
   grid-template-columns: 1fr 1fr;
   display: grid;

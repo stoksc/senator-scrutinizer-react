@@ -3,7 +3,7 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-import { TwitterTweetEmbed } from 'react-twitter-embed';
+import TweetEmbed from 'react-tweet-embed';
 
 
 class TweetGrid extends Component {
@@ -38,10 +38,11 @@ class TweetGrid extends Component {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
+        alignContext: 'flex-start'
       },
       gridList: {
         width: "100%",
-        height: 450,
+        height: 500,
         overflowY: 'auto',
         cols: 1,
       },
@@ -58,9 +59,9 @@ class TweetGrid extends Component {
                   hashtag.tweet_ids.map((tweet_id, index) => (
                     <GridTile
                         key={index}
-                        title=" ">
-                        <TwitterTweetEmbed
-                          tweetId={tweet_id}
+                        title={null}>
+                        <TweetEmbed
+                          id={tweet_id}
                         />
                     </GridTile>
                   )))

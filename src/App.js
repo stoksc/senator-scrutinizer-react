@@ -127,7 +127,18 @@ class App extends Component {
         hashtagFieldValue: event.target.value,
         displayedHashtagPieData: Object.values(this.state.hashtagPieData).filter(
           (slice) => {
-            return slice.id.includes(event.target.value)
+            return slice.id.toLowerCase().includes(event.target.value)
+          }
+        )
+    });
+  }
+
+  userTextFieldChange = (event) => {
+    this.setState({
+        userFieldValue: event.target.value,
+        displayedUserPieData: Object.values(this.state.userPieData).filter(
+          (slice) => {
+            return slice.id.toLowerCase().includes(event.target.value)
           }
         )
     });
@@ -140,10 +151,17 @@ class App extends Component {
         <LineGraph volume_line_graph={this.state.data}/>
       </Slide>,
       <Slide>
-         <PieGraph pie_data={this.state.userPieData} />
+         <div className="piePage">
+           <div className="piePageLeft">
+             <TextField value={this.state.userFieldValue} onChange={this.userTextFieldChange} />
+             <PieGraph pie_data={this.state.displayedUserPieData} />
+           </div>
+           <div className="piePageRight">
+             <TweetGrid pie_data={this.state.displayedUserPieData} />
+           </div>
+        </div>
       </Slide>,
       <Slide>
-        <MuiThemeProvider >
           <div className="piePage">
             <div className="piePageLeft">
               <TextField value={this.state.hashtagFieldValue} onChange={this.hashtagTextFieldChange} />
@@ -153,7 +171,6 @@ class App extends Component {
               <TweetGrid pie_data={this.state.displayedHashtagPieData} />
             </div>
          </div>
-        </MuiThemeProvider>
       </Slide>,
     ]
 
@@ -186,7 +203,9 @@ class App extends Component {
     return (
       <div className="app">
         <div>
-          <Fullpage {...fullPageOptions} />
+          <MuiThemeProvider >
+            <Fullpage {...fullPageOptions} />
+          </MuiThemeProvider>
         </div>
       </div>
     );
