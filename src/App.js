@@ -14,6 +14,8 @@ import RadarGraph from './components/RadarGraph';
 import TweetGrid from './components/TweetGrid';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Slider from 'material-ui/Slider';
+import ScatterGraph from './components/ScatterGraph';
+import ProgressStepper from './components/Stepper';
 import './App.css';
 
 const styles = {
@@ -61,6 +63,118 @@ class App extends Component {
       'hashtagFieldValue': '',
       'userPieData': null,
       'radarData': null,
+      'scatterData': [
+        {
+          "id": "group A",
+          "data": [
+            {
+              "id": 0,
+              "x": 81,
+              "y": 8
+            },
+            {
+              "id": 1,
+              "x": 11,
+              "y": 28
+            },
+            {
+              "id": 2,
+              "x": 59,
+              "y": 79
+            },
+            {
+              "id": 3,
+              "x": 72,
+              "y": 92
+            },
+            {
+              "id": 4,
+              "x": 16,
+              "y": 14
+            },
+            {
+              "id": 5,
+              "x": 10,
+              "y": 100
+            },
+            {
+              "id": 6,
+              "x": 98,
+              "y": 12
+            },
+            {
+              "id": 7,
+              "x": 20,
+              "y": 85
+            },
+            {
+              "id": 8,
+              "x": 88,
+              "y": 2
+            },
+            {
+              "id": 9,
+              "x": 50,
+              "y": 57
+            },
+            {
+              "id": 10,
+              "x": 17,
+              "y": 64
+            },
+            {
+              "id": 11,
+              "x": 29,
+              "y": 27
+            },
+            {
+              "id": 12,
+              "x": 65,
+              "y": 112
+            },
+            {
+              "id": 13,
+              "x": 24,
+              "y": 98
+            },
+            {
+              "id": 14,
+              "x": 35,
+              "y": 72
+            },
+            {
+              "id": 15,
+              "x": 48,
+              "y": 52
+            },
+            {
+              "id": 16,
+              "x": 100,
+              "y": 117
+            },
+            {
+              "id": 17,
+              "x": 92,
+              "y": 16
+            },
+            {
+              "id": 18,
+              "x": 72,
+              "y": 28
+            },
+            {
+              "id": 19,
+              "x": 77,
+              "y": 71
+            },
+            {
+              "id": 20,
+              "x": 41,
+              "y": 1
+            },
+          ]
+        }
+      ]
     }
     let url = `http://twingiephp.us-west-2.elasticbeanstalk.com/analytics/state?state=ga`
     const request = async () => {
@@ -112,6 +226,7 @@ class App extends Component {
       });
     }
     request();
+    this.progressStepper.clickedState();
   };
 
   selectSenator = (senator) => {
@@ -131,6 +246,7 @@ class App extends Component {
       });
     }
     request();
+    this.progressStepper.clickedSenator();
   };
 
   hashtagTextFieldChange = (event) => {
@@ -162,7 +278,7 @@ class App extends Component {
       <Slide>
         <div className="selection">
           <div className="usamap">
-            <USAMap onClick={this.mapHandler} />
+            <USAMap onClick= {this.mapHandler} />
           </div>
             <div className="representativeTable">
               {this.state.stateSenators.map((senator) => {
@@ -187,7 +303,6 @@ class App extends Component {
           <Tabs>
             //User Tab
             <Tab label="byUser" >
-
                   <div className="piePage">
                     <div className="piePageLeft">
                       <TextField hintText="search user..." value={this.state.userFieldValue} onChange={this.userTextFieldChange} />
@@ -197,11 +312,9 @@ class App extends Component {
                       <TweetGrid pie_data={this.state.displayedUserPieData} />
                     </div>
                  </div>
-              
             </Tab>
             //Hashtag Tab
             <Tab label="byHashtag" >
-              <div>
                   <div className="piePage">
                     <div className="piePageLeft">
                       <TextField hintText="search hashtag..." value={this.state.hashtagFieldValue} onChange={this.hashtagTextFieldChange} />
@@ -211,9 +324,11 @@ class App extends Component {
                       <TweetGrid pie_data={this.state.displayedHashtagPieData} />
                     </div>
                  </div>
-              </div>
             </Tab>
           </Tabs>
+        </Slide>,
+        <Slide>
+          <ScatterGraph scatter_data={this.state.scatterData}/>
         </Slide>
     ];
     fullPageOptions.slides = slides;
@@ -222,6 +337,7 @@ class App extends Component {
       <div className="app">
         <div>
           <MuiThemeProvider >
+            <ProgressStepper ref={instance => { this.progressStepper = instance; }} />
             <Fullpage {...fullPageOptions} />
           </MuiThemeProvider>
         </div>

@@ -6,6 +6,7 @@
     "@nivo/line": "^0.33.0",
     "@nivo/pie": "^0.33.0",
     "@nivo/radar": "^0.33.0",
+    "@nivo/scatterplot": "^0.33.0",
     "@nivo/stream": "^0.33.0",
     "@vx/axis": "^0.0.153",
     "@vx/curve": "^0.0.153",
