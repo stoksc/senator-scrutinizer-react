@@ -18,7 +18,7 @@ import './App.css';
 
 const styles = {
   headline: {
-    fontSize: 24,
+    fontSize: 16,
     paddingTop: 16,
     marginBottom: 12,
     fontWeight: 400,
@@ -157,8 +157,8 @@ class App extends Component {
 
   render() {
     //Creates horizonal slides
-
     const slides = [
+      //Slide 1 - US Map with Representatives
       <Slide>
         <div className="selection">
           <div className="usamap">
@@ -176,31 +176,35 @@ class App extends Component {
           </div>
         </div>
       </Slide>,
+      //Slide 2 - Line Graph
       <Slide>
-        <LineGraph volume_line_graph={this.state.data}/>
+
+          <LineGraph volume_line_graph={this.state.data}/>
+
       </Slide>,
+      //Slide 3 - Piegraphs with different tabs
         <Slide>
           <Tabs>
+            //User Tab
             <Tab label="byUser" >
-              <div>
-                <h2 style={styles.headline}>@mention</h2>
+
                   <div className="piePage">
                     <div className="piePageLeft">
-                      <TextField value={this.state.userFieldValue} onChange={this.userTextFieldChange} />
+                      <TextField hintText="search user..." value={this.state.userFieldValue} onChange={this.userTextFieldChange} />
                       <PieGraph pie_data={this.state.displayedUserPieData} />
                     </div>
                     <div className="piePageRight">
                       <TweetGrid pie_data={this.state.displayedUserPieData} />
                     </div>
                  </div>
-              </div>
+              
             </Tab>
+            //Hashtag Tab
             <Tab label="byHashtag" >
               <div>
-                <h2 style={styles.headline}>#hashtag</h2>
                   <div className="piePage">
                     <div className="piePageLeft">
-                      <TextField value={this.state.hashtagFieldValue} onChange={this.hashtagTextFieldChange} />
+                      <TextField hintText="search hashtag..." value={this.state.hashtagFieldValue} onChange={this.hashtagTextFieldChange} />
                       <PieGraph pie_data={this.state.displayedHashtagPieData} />
                     </div>
                     <div className="piePageRight">

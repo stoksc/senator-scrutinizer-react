@@ -11,11 +11,10 @@ class PieGraph extends Component {
     const keys = ['Raoul', 'Josiane', 'Marcel', 'René', 'Paul', 'Jacques']
 
     const commonProperties = {
-      width: 600,
-      height: 600,
+      width: 700,
+      height: 500,
       margin: { top: 60, right: 80, bottom: 60, left: 80 },
       keys,
-      data: this.props.pie_data,
       animate: true,
       offsetType: 'none',
       axisLeft: {},
@@ -39,12 +38,15 @@ class PieGraph extends Component {
       motionDamping: 15,
     }
 
-    if (commonProperties.data) {
+    if (this.props.pie_data) {
+      console.log(this.props.pie_data)
       return (
-        <Pie {...commonProperties} />
+        <Pie {...commonProperties} data={this.props.pie_data} />
+
       )
     } else {
       return (
+        // <Pie {...commonProperties} data={this.blank}/>
         <div></div>
       )
     }
