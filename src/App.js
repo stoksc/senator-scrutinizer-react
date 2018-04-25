@@ -12,7 +12,18 @@ import StreamGraph from './components/StreamGraph';
 import PieGraph from './components/PieGraph';
 import RadarGraph from './components/RadarGraph';
 import TweetGrid from './components/TweetGrid';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import Slider from 'material-ui/Slider';
 import './App.css';
+
+const styles = {
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
+};
 
 const fullPageOptions = {
   scrollSensitivity: 5,
@@ -127,7 +138,7 @@ class App extends Component {
         hashtagFieldValue: event.target.value,
         displayedHashtagPieData: Object.values(this.state.hashtagPieData).filter(
           (slice) => {
-            return slice.id.toLowerCase().includes(event.target.value)
+            return slice.id.toLowerCase().includes(event.target.value.toLowerCase())
           }
         )
     });
@@ -138,7 +149,7 @@ class App extends Component {
         userFieldValue: event.target.value,
         displayedUserPieData: Object.values(this.state.userPieData).filter(
           (slice) => {
-            return slice.id.toLowerCase().includes(event.target.value)
+            return slice.id.toLowerCase().includes(event.target.value.toLowerCase())
           }
         )
     });
@@ -146,36 +157,6 @@ class App extends Component {
 
   render() {
     //Creates horizonal slides
-    const graphsSlides = [
-      <Slide>
-        <LineGraph volume_line_graph={this.state.data}/>
-      </Slide>,
-      <Slide>
-         <div className="piePage">
-           <div className="piePageLeft">
-             <TextField value={this.state.userFieldValue} onChange={this.userTextFieldChange} />
-             <PieGraph pie_data={this.state.displayedUserPieData} />
-           </div>
-           <div className="piePageRight">
-             <TweetGrid pie_data={this.state.displayedUserPieData} />
-           </div>
-        </div>
-      </Slide>,
-      <Slide>
-          <div className="piePage">
-            <div className="piePageLeft">
-              <TextField value={this.state.hashtagFieldValue} onChange={this.hashtagTextFieldChange} />
-              <PieGraph pie_data={this.state.displayedHashtagPieData} />
-            </div>
-            <div className="piePageRight">
-              <TweetGrid pie_data={this.state.displayedHashtagPieData} />
-            </div>
-         </div>
-      </Slide>,
-    ]
-
-    //Assigns above consts as slide props
-    graphsSlidesProps.slides = graphsSlides;
 
     const slides = [
       <Slide>
@@ -195,8 +176,41 @@ class App extends Component {
           </div>
         </div>
       </Slide>,
-      <HorizontalSlider {...graphsSlidesProps}></HorizontalSlider>,
-      <HorizontalSlider {...tweetsDetailSlidesProps}></HorizontalSlider>
+      <Slide>
+        <LineGraph volume_line_graph={this.state.data}/>
+      </Slide>,
+        <Slide>
+          <Tabs>
+            <Tab label="byUser" >
+              <div>
+                <h2 style={styles.headline}>@mention</h2>
+                  <div className="piePage">
+                    <div className="piePageLeft">
+                      <TextField value={this.state.userFieldValue} onChange={this.userTextFieldChange} />
+                      <PieGraph pie_data={this.state.displayedUserPieData} />
+                    </div>
+                    <div className="piePageRight">
+                      <TweetGrid pie_data={this.state.displayedUserPieData} />
+                    </div>
+                 </div>
+              </div>
+            </Tab>
+            <Tab label="byHashtag" >
+              <div>
+                <h2 style={styles.headline}>#hashtag</h2>
+                  <div className="piePage">
+                    <div className="piePageLeft">
+                      <TextField value={this.state.hashtagFieldValue} onChange={this.hashtagTextFieldChange} />
+                      <PieGraph pie_data={this.state.displayedHashtagPieData} />
+                    </div>
+                    <div className="piePageRight">
+                      <TweetGrid pie_data={this.state.displayedHashtagPieData} />
+                    </div>
+                 </div>
+              </div>
+            </Tab>
+          </Tabs>
+        </Slide>
     ];
     fullPageOptions.slides = slides;
 
