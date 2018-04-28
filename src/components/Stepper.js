@@ -4,7 +4,10 @@ import {
   Stepper,
   StepLabel,
 } from 'material-ui/Stepper';
-
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
+import '../App.css';
 class ProgressStepper extends React.Component {
 
   state = {
@@ -52,7 +55,10 @@ class ProgressStepper extends React.Component {
     const {finished, stepIndex} = this.state;
 
     return (
-      <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+      <div className={"stepper_bar"} style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+        <IconButton tooltip="Reset">
+            <ActionHome onClick={this.clickedHome}/>
+          </IconButton>
         <Stepper activeStep={stepIndex}>
           <Step>
             <StepLabel>Pick a State</StepLabel>

@@ -39,7 +39,7 @@ class LineGraph extends Component {
           "orient": "bottom",
           "tickSize": 5,
           //padding clips out interval label
-          "tickPadding": 105,
+          "tickPadding": 5,
           "tickRotation": 0,
           "legend": "Time",
           "legendOffset": 36,

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 //import HashtagHistogram from './components/hashtagHistogram';
 import USAMap from "react-usa-map";
 import { Media } from 'react-bootstrap';
-import { Fullpage, Slide, HorizontalSlider } from 'fullpage-react';
+import { Fullpage, Slide, HorizontalSlider, changeFullpageSlide } from 'fullpage-react';
 import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MediaTile from './components/MediaTile';
@@ -16,6 +16,8 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import Slider from 'material-ui/Slider';
 import ScatterGraph from './components/ScatterGraph';
 import ProgressStepper from './components/Stepper';
+
+
 import './App.css';
 
 const styles = {
@@ -230,6 +232,7 @@ class App extends Component {
   };
 
   selectSenator = (senator) => {
+
     this.setState({
       'selectedSenator': senator.name,
     })
@@ -247,6 +250,7 @@ class App extends Component {
     }
     request();
     this.progressStepper.clickedSenator();
+    Fullpage.changeFullpageSlide(1);
   };
 
   hashtagTextFieldChange = (event) => {
@@ -270,6 +274,10 @@ class App extends Component {
         )
     });
   }
+
+lockPage = () => {
+  Fullpage.isLocked = true;
+}
 
   render() {
     //Creates horizonal slides
@@ -295,7 +303,10 @@ class App extends Component {
       //Slide 2 - Line Graph
       <Slide>
 
-          <LineGraph volume_line_graph={this.state.data}/>
+
+
+          <LineGraph volume_line_graph={this.state.data}
+                     />
 
       </Slide>,
       //Slide 3 - Piegraphs with different tabs
@@ -320,7 +331,7 @@ class App extends Component {
                       <TextField hintText="search hashtag..." value={this.state.hashtagFieldValue} onChange={this.hashtagTextFieldChange} />
                       <PieGraph pie_data={this.state.displayedHashtagPieData} />
                     </div>
-                    <div className="piePageRight">
+                    <div className="piePageRight" overflow ="auto" onmouseover={this.lockPage}>
                       <TweetGrid pie_data={this.state.displayedHashtagPieData} />
                     </div>
                  </div>
@@ -338,6 +349,7 @@ class App extends Component {
         <div>
           <MuiThemeProvider >
             <ProgressStepper ref={instance => { this.progressStepper = instance; }} />
+
             <Fullpage {...fullPageOptions} />
           </MuiThemeProvider>
         </div>
@@ -345,5 +357,11 @@ class App extends Component {
     );
   }
 }
+
+
+
+
+
+
 
 export default App;

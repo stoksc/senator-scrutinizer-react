@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Pie } from '@nivo/pie'
+import { Pie } from '@nivo/pie';
 
 class PieGraph extends Component {
   constructor(props) {
     super(props);
     this.state = null
   }
+
   render() {
     //implement keys prop and that instead.
     const keys = ['Raoul', 'Josiane', 'Marcel', 'René', 'Paul', 'Jacques']
@@ -47,7 +48,7 @@ class PieGraph extends Component {
     } else {
       return (
         // <Pie {...commonProperties} data={this.blank}/>
-        <div></div>
+        <div>Type in a search term</div>
       )
     }
   }
