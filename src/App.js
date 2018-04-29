@@ -16,9 +16,18 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import Slider from 'material-ui/Slider';
 import ScatterGraph from './components/ScatterGraph';
 import ProgressStepper from './components/Stepper';
-
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 
 import './App.css';
+
+const menuStyles = {
+  customWidth: {
+    width: 200,
+  },
+};
+
+
 
 const styles = {
   headline: {
@@ -49,6 +58,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      'dropDownValue': 1,
       'selectedState': null,
       'stateSenators': [
         {
@@ -177,6 +187,7 @@ class App extends Component {
           ]
         }
       ]
+
     }
     let url = `http://twingiephp.us-west-2.elasticbeanstalk.com/analytics/state?state=ga`
     const request = async () => {
@@ -275,9 +286,7 @@ class App extends Component {
     });
   }
 
-lockPage = () => {
-  Fullpage.isLocked = true;
-}
+  handleDropDown = (event, index, value) => this.setState({dropDownValue: value});
 
   render() {
     //Creates horizonal slides
@@ -311,32 +320,52 @@ lockPage = () => {
       </Slide>,
       //Slide 3 - Piegraphs with different tabs
         <Slide>
-          <Tabs>
-            //User Tab
-            <Tab label="byUser" >
-                  <div className="piePage">
-                    <div className="piePageLeft">
-                      <TextField hintText="search user..." value={this.state.userFieldValue} onChange={this.userTextFieldChange} />
-                      <PieGraph pie_data={this.state.displayedUserPieData} />
-                    </div>
-                    <div className="piePageRight">
-                      <TweetGrid pie_data={this.state.displayedUserPieData} />
-                    </div>
-                 </div>
-            </Tab>
-            //Hashtag Tab
-            <Tab label="byHashtag" >
-                  <div className="piePage">
-                    <div className="piePageLeft">
-                      <TextField hintText="search hashtag..." value={this.state.hashtagFieldValue} onChange={this.hashtagTextFieldChange} />
-                      <PieGraph pie_data={this.state.displayedHashtagPieData} />
-                    </div>
-                    <div className="piePageRight" overflow ="auto" onmouseover={this.lockPage}>
-                      <TweetGrid pie_data={this.state.displayedHashtagPieData} />
-                    </div>
-                 </div>
-            </Tab>
-          </Tabs>
+          <div className="piePage">
+            <div className="piePageLeft">
+              <TextField
+                hintText = {(() => {
+                  switch (this.state.dropDownValue) {
+                    case 1: return "search by user...";
+                    case 2: return "search by hashtag...";
+                    default: return ""; }
+                  })()}
+                value = {(() => {
+                  switch (this.state.dropDownValue) {
+                    case 1: return this.state.userFieldValue;
+                    case 2: return this.statehashtagFieldValue;
+                    default: return ""; }
+                  })()}
+                onChange = {(() => {
+                  switch (this.state.dropDownValue) {
+                    case 1: return this.userTextFieldChange;
+                    case 2: return this.hashtagTextFieldChange;
+                    default: return ""; }
+                  })()}/>
+              <br />
+              <DropDownMenu
+                style ={menuStyles}
+                autoWith = {true}
+                value={this.state.dropDownValue}
+                onChange={this.handleDropDown}>
+                  <MenuItem value={1} primaryText="User" />
+                  <MenuItem value={2} primaryText="Hashtag" />
+              </DropDownMenu>
+              <PieGraph pie_data={(() => {
+                switch (this.state.dropDownValue) {
+                  case 1: return this.state.displayedUserPieData;
+                  case 2: return this.state.displayedHashtagPieData;
+                  default: return null; }
+      })()} />
+            </div>
+            <div className="piePageRight">
+              <TweetGrid pie_data={(() => {
+                switch (this.state.dropDownValue) {
+                  case 1: return this.state.displayedUserPieData;
+                  case 2: return this.state.displayedHashtagPieData;
+                  default: return null; }
+      })()} />
+            </div>
+         </div>
         </Slide>,
         <Slide>
           <ScatterGraph scatter_data={this.state.scatterData}/>
