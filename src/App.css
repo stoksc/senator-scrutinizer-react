@@ -3,7 +3,6 @@
 
 .selection {
   width: 100%;
-  padding: 75px;
   grid-template-columns: 7fr 3fr;
   grid-template-rows: 1fr;
   display: grid;
@@ -22,22 +21,21 @@
 
 .piePage {
   width: 100%;
-  padding: 5px;
   grid-template-columns: 1fr 1fr;
   display: grid;
 }
 .piePageLeft {
   width: 100%;
   height: 100%;
-  padding: 30px;
+  white-space: nowrap;
 }
 .piePageRight {
   width: 100%;
   height: 100%;
-  padding: 30px;
 }
 
 .representativeTable {
+  margin: auto;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(2, 1fr);
   display: grid;
@@ -46,7 +44,7 @@
 .representativeTile {
   width: inherit;
   background: white;
-  margin: auto 0;
+  /* margin: auto 0; */
 }
 
 .representativeTile:hover {
