@@ -14,9 +14,13 @@ class BarGraph extends Component {
       ]
 
     const commonProperties = {
-      width: 1500,
-      height: 360,
-      margin: { top: 60, right: 80, bottom: 60, left: 80 },
+      width: 1400,
+      height: 800,
+      layout: "horizontal",
+      colors: "nivo",
+      enableLabel: false,
+      margin: { top: 60, right: 175, bottom: 60, left: 175 },
+      axisBottom: { tickPadding: 13, legendOffset: 0 },
       keys,
       indexBy: "id",
       data: this.props.bar_data,
@@ -24,8 +28,16 @@ class BarGraph extends Component {
       offsetType: 'none',
       axisLeft: {},
     }
-
-    return( <ResponsiveBar {...commonProperties} /> )
+    if (this.props.bar_data) {
+      return (
+        <ResponsiveBar {...commonProperties} />
+        )
+    } else {
+      return (
+        <div></div>
+      )
+    }
   }
 }
+
 export default BarGraph;

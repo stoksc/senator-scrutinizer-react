@@ -12,22 +12,22 @@ class ProgressStepper extends React.Component {
     finished: false,
     stepIndex: 0,
   };
+
   clickedState = () => {
-    const {stepIndex} = this.state;
     this.setState({
       stepIndex: 1,
       finished: false
     })
   }
+
   clickedSenator = () => {
-    const {stepIndex} = this.state;
     this.setState({
       stepIndex: 2,
       finished: true
     })
   }
+
   clickedHome = () => {
-    const {stepIndex} = this.state;
     this.setState({
       stepIndex: 0,
       finished: false
@@ -50,11 +50,9 @@ class ProgressStepper extends React.Component {
   };
 
   render() {
-    const {finished, stepIndex} = this.state;
-
+    const {stepIndex} = this.state;
     return (
-      <div className={"stepper_bar"} style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
-
+      <div className="stepper_bar" style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
         <Stepper activeStep={stepIndex}>
           <Step>
             <StepLabel>Pick a State</StepLabel>

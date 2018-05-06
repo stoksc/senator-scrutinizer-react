@@ -22,7 +22,7 @@ class PieGraph extends Component {
       innerRadius: 0.5,
       padAngle: 0.7,
       cornerRadius: 3,
-      colors: "d320c",
+      colors: "nivo",
       colorBy: "id",
       borderColor: "inherit:darker(0.6)",
       radialLabelsSkipAngle: 10,
@@ -40,10 +40,8 @@ class PieGraph extends Component {
     }
 
     if (this.props.pie_data) {
-      console.log(this.props.pie_data)
       return (
         <Pie {...commonProperties} data={this.props.pie_data} />
-
       )
     } else {
       return (

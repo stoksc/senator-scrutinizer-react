@@ -10,17 +10,25 @@ class ScatterGraph extends Component {
     //implement keys prop and that instead.
 
     const commonProperties = {
-      width: 1500,
-      height: 900,
-      margin: { top: 60, right: 80, bottom: 60, left: 80 },
+      width: 1400,
+      height: 800,
+      colors: "nivo",
+      margin: { top: 60, right: 150, bottom: 60, left: 150 },
       // keys,
       data: this.props.scatter_data,
       animate: true,
       offsetType: 'none',
       axisLeft: {},
     }
-
-    return( <ResponsiveScatterPlotCanvas {...commonProperties} /> )
+    if (this.props.scatter_data) {
+      return (
+        <ResponsiveScatterPlotCanvas {...commonProperties} />
+        )
+    } else {
+      return (
+        <div></div>
+      )
+    }
   }
 }
 export default ScatterGraph;

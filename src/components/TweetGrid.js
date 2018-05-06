@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import {GridList, GridTile} from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import Subheader from 'material-ui/Subheader';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import TweetEmbed from 'react-tweet-embed';
 
 
 class TweetGrid extends Component {
   constructor(props) {
     super(props);
-    console.log(props.pie_data)
-    console.log(this.props.pie_data)
     this.state = {
       'pie_data': props.pie_data,
     }
@@ -44,7 +39,8 @@ class TweetGrid extends Component {
         width: "100%",
         height: 500,
         overflowY: 'auto',
-        cols: 1,
+        cols: 2,
+        padding: 4,
       },
     };
     if (this.state.pie_data) {
@@ -54,7 +50,6 @@ class TweetGrid extends Component {
                     style={styles.gridList}>
             {this.state.pie_data.map((hashtag) => {
               if (hashtag) {
-                console.log(hashtag)
                 return (
                   hashtag.tweet_ids.map((tweet_id, index) => (
                     <GridTile
@@ -65,14 +60,16 @@ class TweetGrid extends Component {
                         />
                     </GridTile>
                   )))
+              } else {
+                return null
               }})}
           </GridList>
         </div>
       )
     } else {
-    return (
-        <div></div>
-      )
+      return (
+          <div></div>
+        )
     }
   }
 }

@@ -1,6 +1,5 @@
 import React from "react";
-import { Card, CardTitle, CardText, CardHeader } from 'material-ui/Card';
-import { Media } from 'react-bootstrap';
+import { Card, CardText, CardHeader } from 'material-ui/Card';
 
 class MediaTile extends React.Component {
   handleClick = () => {

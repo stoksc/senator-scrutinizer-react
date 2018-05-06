@@ -1,28 +1,66 @@
 .app {
 }
 
+
+.selectionSlide {
+  background: #ECE9E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.stepper_bar {
+  display:flex;
+  flex-direction:row;
+}
 .selection {
   width: 100%;
   grid-template-columns: 7fr 3fr;
   grid-template-rows: 1fr;
   display: grid;
 }
+.usamap {
+  margin: auto;
+}
+path {
+  pointer-events: all;
+}
+path:hover {
+  opacity: 0.50;
+  cursor: pointer;
+}
+.representativeTable {
+  margin: auto;
+  padding: 25px;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  display: grid;
+}
+.representativeTile {
+  width: inherit;
+  background: white;
+  margin: 15px;
+  /* margin: auto 0; */
+}
+.representativeTile:hover {
+  opacity: 0.50;
+  cursor: pointer;
+}
 
+
+.pieSlide {
+  background: #ECE9E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 .pieGraphs {
   display: grid;
   grid-template-rows: 1fr 1fr;
   width: 100%;
 }
-
-.stepper_bar{display:flex; flex-direction:row;}
-
-.usamap {
-}
-
 .piePage {
   width: 100%;
   grid-template-columns: 1fr 1fr;
   display: grid;
+  margin-top: auto;
 }
 .piePageLeft {
   width: 100%;
@@ -30,49 +68,15 @@
   white-space: nowrap;
 }
 .piePageRight {
-  width: 100%;
-  height: 100%;
-}
-
-.representativeTable {
   margin: auto;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  padding: auto;
+}
+.pieSearchBlock {
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: auto;
+  padding: auto;
 }
-
-.representativeTile {
-  width: inherit;
-  background: white;
-  /* margin: auto 0; */
-}
-
-.representativeTile:hover {
-  opacity: 0.50;
-  cursor: pointer;
-}
-
-path {
-  pointer-events: all;
-}
-
-path:hover {
-  opacity: 0.50;
-  cursor: pointer;
-}
-
-.frequencyGraph {
-  height: 500px;
-  padding: 20px;
-  background-color: white;
-}
-
-.hashtagHistogram {
-  height: 500px;
-  padding: 20px;
-  background-color: #999;
-}
-
 .tweetTable {
   height: 500px;
   width: 100%;
@@ -80,7 +84,27 @@ path:hover {
   grid-template-rows: repeat(2, 1fr);
   display: grid;
 }
-
 .tweetTile {
   margin: 0 auto;
+}
+
+.lineSlide {
+  background: #ECE9E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.scatterSlide {
+  background: #ECE9E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.barSlide {
+  background: #ECE9E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.barPage {
+  padding: 25px;
 }
