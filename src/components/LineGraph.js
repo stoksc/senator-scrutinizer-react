@@ -17,10 +17,9 @@ class LineGraph extends Component {
       this.setState({
         data: Object.values(json).map(element => {
           return {
-            //change these
-            unix_time: parseInt(element['unix_time']['N']),
-            volume: parseInt(element['number_of_tweets']['N']),
-            sentiment: parseFloat(element['sentiment']['S'])
+            unix_time: parseInt(element['unix_time']['N'], 10),
+            volume: parseInt(element['number_of_tweets']['N'], 10),
+            sentiment: parseFloat(element['sentiment']['S'], 10)
           };
         }),
       });
@@ -30,14 +29,18 @@ class LineGraph extends Component {
   render() {
     const commonProperties = {
       data: this.props.volume_line_graph,
-      margin: {top: 50, right: 110, bottom: 50, left: 60},
+      margin: {top: 60, right: 150, bottom: 60, left: 150},
+      width: 1400,
+      height: 800,
       minY: "auto",
       stacked: false,
+      curve: "monotoneY",
+      colors: "nivo",
       axisBottom: {
           "orient": "bottom",
           "tickSize": 5,
           //padding clips out interval label
-          "tickPadding": 105,
+          "tickPadding": 13,
           "tickRotation": 0,
           "legend": "Time",
           "legendOffset": 36,
@@ -78,10 +81,7 @@ class LineGraph extends Component {
       return (
         <ResponsiveLine {...commonProperties}
           tooltipFormat={value =>
-    `${Number(value).toLocaleString('ru-RU', {
-        minimumFractionDigits: 2,
-    })} ₽`
-}/>
+            `${value}`}/>
       );
     } else {
       return (

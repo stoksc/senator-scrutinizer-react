@@ -1,5 +1,5 @@
 import React from "react";
-import { Media } from 'react-bootstrap';
+import { Card, CardText, CardHeader } from 'material-ui/Card';
 
 class MediaTile extends React.Component {
   handleClick = () => {
@@ -7,18 +7,15 @@ class MediaTile extends React.Component {
   }
   render () {
     return (
-      <Media className="representativeTile"
+      <Card className="representativeTile"
              onClick={this.handleClick}>
-        <Media.Left>
-          <img width={64} height={64} src={this.props.media.img} />
-        </Media.Left>
-        <Media.Body>
-          <Media.Heading>
-            {this.props.media.name}
-          </Media.Heading>
+        <CardHeader
+          title={this.props.media.name}
+          avatar={this.props.media.img} />
+        <CardText>
           {this.props.media.desc}
-        </Media.Body>
-      </Media>
+        </CardText>
+      </Card>
     );
   }
 }

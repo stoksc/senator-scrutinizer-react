@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
-import { Pie } from '@nivo/pie'
+import { Pie } from '@nivo/pie';
 
 class PieGraph extends Component {
   constructor(props) {
     super(props);
     this.state = null
   }
+
   render() {
     //implement keys prop and that instead.
     const keys = ['Raoul', 'Josiane', 'Marcel', 'René', 'Paul', 'Jacques']
 
     const commonProperties = {
-      width: 360,
-      height: 360,
+      width: 700,
+      height: 500,
       margin: { top: 60, right: 80, bottom: 60, left: 80 },
       keys,
-      data: this.props.pie_data,
       animate: true,
       offsetType: 'none',
       axisLeft: {},
       innerRadius: 0.5,
       padAngle: 0.7,
       cornerRadius: 3,
-      colors: "d320c",
+      colors: "nivo",
       colorBy: "id",
       borderColor: "inherit:darker(0.6)",
       radialLabelsSkipAngle: 10,
@@ -39,13 +39,14 @@ class PieGraph extends Component {
       motionDamping: 15,
     }
 
-    if (commonProperties.data) {
+    if (this.props.pie_data) {
       return (
-        <Pie {...commonProperties} />
+        <Pie {...commonProperties} data={this.props.pie_data} />
       )
     } else {
       return (
-        <div></div>
+        // <Pie {...commonProperties} data={this.blank}/>
+        <div>Type in a search term</div>
       )
     }
   }
