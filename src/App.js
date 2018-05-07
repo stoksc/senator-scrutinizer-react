@@ -26,7 +26,8 @@ const fullPageOptions = {
   touchSensitivity: 5,
   scrollSpeed: 350,
   hideScrollBars: true,
-  enableArrowKeys: true
+  enableArrowKeys: true,
+  normalScrollElements: this.TweetGrid
 };
 
 const php_endpoint = "http://twingiephp.us-east-2.elasticbeanstalk.com/"
@@ -53,6 +54,8 @@ class App extends Component {
       'displayedHashtagPieData': null,
       'hashtagFieldValue': '',
       'userPieData': null,
+      'userFieldValue': '',
+      'displayedUserPieData': null,
       'radarData': null,
       'barData': null,
       'scatterData': null,
@@ -79,11 +82,12 @@ class App extends Component {
       const default_response = await fetch(default_url);
       const default_json = await default_response.json();
       this.setState({
-        selectedSenator: '@senatorisakson',
+        selectedSenator: '@lisamurkowski',
         data: default_json.volume_line_graph,
         hashtagPieData: default_json.related_hashtag,
         displayedHashtagPieData: default_json.related_hashtag,
         userPieData: default_json.related_user,
+        displayedUserPieData: default_json.related_user,
       });
     }
     default_request();
@@ -91,9 +95,7 @@ class App extends Component {
 
   mapHandler = (event) => {
     this.setState({pState: this.state.cState});
-    console.log("prev: "+this.state.pState)
     this.setState({cState: event.target.dataset.name})
-    console.log("curr: "+this.state.cState)
     let state = event.target.dataset.name.toLowerCase()
 
     let url = `${php_endpoint}/analytics/state?state=${state}`
@@ -124,7 +126,6 @@ class App extends Component {
     const request = async () => {
       const response = await fetch(url);
       const json = await response.json();
-      console.log(json);
       this.setState({
         data: json.volume_line_graph,
         hashtagPieData: json.related_hashtag,
@@ -216,7 +217,7 @@ class App extends Component {
                 value = {(() => {
                   switch (this.state.dropDownValue) {
                     case 1: return this.state.userFieldValue;
-                    case 2: return this.statehashtagFieldValue;
+                    case 2: return this.state.hashtagFieldValue;
                     default: return ""; }})()}
                 onChange = {(() => {
                   switch (this.state.dropDownValue) {

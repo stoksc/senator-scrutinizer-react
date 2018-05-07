@@ -4,18 +4,29 @@ import { Pie } from '@nivo/pie';
 class PieGraph extends Component {
   constructor(props) {
     super(props);
-    this.state = null
+    this.state = {
+      'pie_data': props.pie_data,
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      'pie_data': nextProps.pie_data,
+    })
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.pie_data === this.state.pie_data) {
+      return false
+    }
+    return true
   }
 
   render() {
-    //implement keys prop and that instead.
-    const keys = ['Raoul', 'Josiane', 'Marcel', 'René', 'Paul', 'Jacques']
-
     const commonProperties = {
       width: 700,
       height: 500,
       margin: { top: 60, right: 80, bottom: 60, left: 80 },
-      keys,
       animate: true,
       offsetType: 'none',
       axisLeft: {},
@@ -41,7 +52,7 @@ class PieGraph extends Component {
 
     if (this.props.pie_data) {
       return (
-        <Pie {...commonProperties} data={this.props.pie_data} />
+        <Pie {...commonProperties} data={this.state.pie_data} />
       )
     } else {
       return (
