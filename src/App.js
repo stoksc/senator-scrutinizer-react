@@ -27,7 +27,6 @@ const fullPageOptions = {
   scrollSpeed: 350,
   hideScrollBars: true,
   enableArrowKeys: true,
-  normalScrollElements: this.TweetGrid
 };
 
 const php_endpoint = "http://twingiephp.us-east-2.elasticbeanstalk.com/"
@@ -131,6 +130,7 @@ class App extends Component {
         hashtagPieData: json.related_hashtag,
         displayedHashtagPieData: json.related_hashtag,
         userPieData: json.related_user,
+        displayedUserPieData: json.related_user,
         wordPieData: json.word_occurence_pie_graph,
         scatterData: json.scatter_graph,
         barData: json.named_entity_bar_graph
