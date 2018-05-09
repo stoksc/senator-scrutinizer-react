@@ -1,4 +1,4 @@
-import { ResponsiveScatterPlotCanvas } from '@nivo/scatterplot';
+import { ResponsiveScatterPlot } from '@nivo/scatterplot';
 import React, { Component } from 'react';
 
 class ScatterGraph extends Component {
@@ -7,22 +7,36 @@ class ScatterGraph extends Component {
     this.state = null
   }
   render() {
-    //implement keys prop and that instead.
-
     const commonProperties = {
-      width: 1400,
-      height: 800,
+      width: 1600,
+      height: 600,
       colors: "nivo",
-      margin: { top: 60, right: 150, bottom: 60, left: 150 },
-      // keys,
+      margin: { top: 40, right: 175, bottom: 50, left: 50 },
+      axisBottom: {
+          "orient": "bottom",
+          "tickSize": 5,
+          "tickPadding": 5,
+          "tickRotation": 0,
+          "legend": "(conservative) <---- Political Leaning ----> (liberal)",
+          "legendPosition": "center",
+          "legendOffset": 46
+      },
+      axisLeft: {
+          "orient": "left",
+          "tickSize": 5,
+          "tickPadding": 5,
+          "tickRotation": 0,
+          "legend": "Popularity",
+          "legendPosition": "center",
+          "legendOffset": -60
+      },
       data: this.props.scatter_data,
       animate: true,
       offsetType: 'none',
-      axisLeft: {},
     }
     if (this.props.scatter_data) {
       return (
-        <ResponsiveScatterPlotCanvas {...commonProperties} />
+        <ResponsiveScatterPlot {...commonProperties} />
         )
     } else {
       return (

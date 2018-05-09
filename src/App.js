@@ -12,6 +12,7 @@ import TweetGrid from './components/TweetGrid';
 import ScatterGraph from './components/ScatterGraph';
 import ProgressStepper from './components/Stepper';
 import SelectField from 'material-ui/SelectField';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
 import MenuItem from 'material-ui/MenuItem';
 import './App.css';
 
@@ -58,8 +59,8 @@ class App extends Component {
       'radarData': null,
       'barData': null,
       'scatterData': null,
-
     }
+
     let url = `${php_endpoint}/analytics/state?state=ak`
     const request = async () => {
       const response = await fetch(url);
@@ -87,6 +88,8 @@ class App extends Component {
         displayedHashtagPieData: default_json.related_hashtag,
         userPieData: default_json.related_user,
         displayedUserPieData: default_json.related_user,
+        scatterData: default_json.scatter_graph,
+        barData: default_json.named_entity_bar_graph
       });
     }
     default_request();
@@ -131,7 +134,6 @@ class App extends Component {
         displayedHashtagPieData: json.related_hashtag,
         userPieData: json.related_user,
         displayedUserPieData: json.related_user,
-        wordPieData: json.word_occurence_pie_graph,
         scatterData: json.scatter_graph,
         barData: json.named_entity_bar_graph
       });
@@ -181,7 +183,6 @@ class App extends Component {
   handleDropDown = (event, index, value) => this.setState({dropDownValue: value});
 
   render() {
-    //Creates horizonal slides
     const slides = [
       //Slide 1 - US Map with Representatives
       <Slide className="selectionSlide">
@@ -204,6 +205,18 @@ class App extends Component {
       <Slide className="pieSlide">
         <div className="piePage">
           <div className="piePageLeft">
+            <Card className="textCard">
+              <CardHeader titleStyle={{fontSize: '2em', fontFamily: 'helvetica'}}
+              title='What do they talk about?'
+              subtitle={`${this.state.selectedSenator}`}
+              />
+              <CardText>
+                This page shows their tweets by hashtag and mention.
+                <br/>
+                Use the search bar below to filter down to specific topics and
+                the dropdown to change what you're searching by.
+              </CardText>
+            </Card>
             <div style={{ display: 'flex', margin: 20 }}>
               <SelectField
                 floatingLabelText='Search by'
@@ -240,21 +253,57 @@ class App extends Component {
           </div>
        </div>
       </Slide>,
-      //Slide 3 Bar Graph Page
       <Slide className="barSlide">
+        <Card className="textCard">
+          <CardHeader titleStyle={{fontSize: '2em', fontFamily: 'helvetica'}}
+          title='What do they like and what do they hate?'
+          subtitle={`${this.state.selectedSenator}`}
+          />
+          <CardText className="textBody">
+            {`For this graph, ${this.state.selectedSenator}'s tweets were
+            examined. We pulled named entities from the text and classified the
+            tweets they occurred in as positive or negative. `}
+            <br/>
+            {`What you see is a
+            visual representative of the context, positive or negative, in
+            which ${this.state.selectedSenator} usually uses these keywords.`}
+          </CardText>
+        </Card>
         <BarGraph bar_data={this.state.barData}/>
       </Slide>,
       <Slide className="lineSlide">
-        <LineGraph volume_line_graph={this.state.data}
-                     />
+        <Card className="textCard">
+          <CardHeader titleStyle={{fontSize: '2em', fontFamily: 'helvetica'}}
+          title='How popular are they?'
+          subtitle={`${this.state.selectedSenator}`}
+          />
+          <CardText className="textBody">
+            {`For this graph, the popularity of ${this.state.selectedSenator}'s
+            tweets are shown over time. This is shown by retweets, favorites and
+            together.`}
+          </CardText>
+        </Card>
+        <LineGraph volume_line_graph={this.state.data}/>
       </Slide>,
-      //Slide 4 Scatter Graph
       <Slide className="scatterSlide">
+        <Card className="textCard">
+          <CardHeader titleStyle={{fontSize: '2em', fontFamily: 'helvetica'}}
+          title='How do they lean?'
+          subtitle={`${this.state.selectedSenator}`}
+          />
+          <CardText className="textBody">
+            {`We examined ${this.state.selectedSenator}'s tweets and
+            classified them as liberal or conservative. This graph shows the
+            leaning of their tweets plotted against the tweet's popularity.`}
+            <br/>
+            {`This is meant to give you an idea not only of
+            ${this.state.selectedSenator}'s political leaning, but also of
+            their constituents' leaning, by seeing the leaning of a tweet with
+            its popularity.`}
+          </CardText>
+        </Card>
         <ScatterGraph scatter_data={this.state.scatterData}/>
       </Slide>,
-      //Slide 3 - Piegraphs with different tabs
-
-
     ];
     fullPageOptions.slides = slides;
 

@@ -29,9 +29,9 @@ class LineGraph extends Component {
   render() {
     const commonProperties = {
       data: this.props.volume_line_graph,
-      margin: {top: 60, right: 150, bottom: 60, left: 150},
-      width: 1400,
-      height: 800,
+      margin: { top: 40, right: 175, bottom: 50, left: 90 },
+      width: 1500,
+      height: 650,
       minY: "auto",
       stacked: false,
       curve: "monotoneY",

@@ -14,13 +14,15 @@ class BarGraph extends Component {
       ]
 
     const commonProperties = {
-      width: 1400,
-      height: 800,
+      width: 1500,
+      height: 625,
       layout: "horizontal",
-      colors: "nivo",
+      colors: "set2",
+      groupMode: "grouped",
       enableLabel: false,
-      margin: { top: 60, right: 175, bottom: 60, left: 175 },
-      axisBottom: { tickPadding: 13, legendOffset: 0 },
+      padding: 0.2,
+      margin: { top: 0, right: 175, bottom: 50, left: 200 },
+      axisBottom: { tickPadding: 12, legendOffset: 0 },
       keys,
       indexBy: "id",
       data: this.props.bar_data,

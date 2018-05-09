@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {GridList, GridTile} from 'material-ui/GridList';
+import { GridList } from 'material-ui/GridList';
 import TweetEmbed from 'react-tweet-embed';
 
 
@@ -37,10 +37,11 @@ class TweetGrid extends Component {
       },
       gridList: {
         width: "100%",
-        height: 500,
+        height: 900,
         overflowY: 'auto',
         cols: 2,
         padding: 4,
+        transform: 'translateZ(0)',
       },
     };
     if (this.state.pie_data) {
@@ -52,13 +53,9 @@ class TweetGrid extends Component {
               if (hashtag) {
                 return (
                   hashtag.tweet_ids.map((tweet_id, index) => (
-                    <GridTile
-                        key={index}
-                        title={null}>
-                        <TweetEmbed
-                          id={tweet_id}
-                        />
-                    </GridTile>
+                    <TweetEmbed
+                      id={tweet_id}
+                    />
                   )))
               } else {
                 return null
